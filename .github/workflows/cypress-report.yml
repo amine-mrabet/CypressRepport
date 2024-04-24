@@ -16,7 +16,7 @@ jobs:
       - name: 'install '
         run:  npm install
       - name: Run Cypress tests
-        run: npx cypress open
+        run: npx cypress run
         continue-on-error: false
       - name: copy test execution videos and screenshots
         run: mkdir public
