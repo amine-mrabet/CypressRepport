@@ -9,8 +9,7 @@ on:
 jobs:
   cypress-test:
     name: 'cypress Test'
-    runs-on: ubuntu-18.04
-    container: cypress/browsers:node12.18.0-chrome83-ff77
+    runs-on: windows-latest
     steps:
       - name: 'Install cypress and verify'
         run: npm ci 
