@@ -11,9 +11,10 @@ jobs:
     name: 'cypress Test'
     runs-on: windows-latest
     steps:
-      - name: 'Install cypress and verify'
-        run: cd /cypress
-            npm i 
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: 'install '
+        run:  npm install
       - name: Run Cypress tests
         run: npm run test:chrome
         continue-on-error: false
