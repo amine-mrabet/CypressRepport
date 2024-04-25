@@ -11,7 +11,7 @@ jobs:
     name: 'cypress Test'
     runs-on: windows-latest
     env:
-      BASE_URL: https://www.cypress.io
+      BASE_URL: http://10.1.146.29:8080/#/
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -20,22 +20,4 @@ jobs:
       - name: Run Cypress tests
         run: npx cypress run
         continue-on-error: false
-      - name: Copy Cypress videos
-        run: |
-          robocopy cypress\videos public\videos /E
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: cypress-artifacts
-          path: |
-            public/videos
-      - name: Merge test reports
-        run: npm run combine:report
-      - name: Generate HTML report
-        run: npm run generate:report
-      - name: Deploy report page to Github Page     
-        uses: peaceiris/actions-gh-pages@v3
-        with: 
-          github_token: ${{ secrets.GITHUB_TOKEN }} 
-          publish_dir: ./public
-         
+      
