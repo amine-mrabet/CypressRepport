@@ -21,3 +21,8 @@ jobs:
         run: npx cypress run
         continue-on-error: false
       
+      - name: Deploy report page to Github Page     
+        uses: peaceiris/actions-gh-pages@v3
+        with: 
+          github_token: ${{ secrets.GITHUB_TOKEN }} 
+          publish_dir: ./public
