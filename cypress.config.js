@@ -15,6 +15,6 @@ module.exports = defineConfig({
   e2e: {
     supportFile:false,
     setupNodeEvents(on, config) {},
-    baseUrl: 'http://10.1.146.29:8080/#/',
+    baseUrl: 'https://www.cypress.io',
   },
 })
