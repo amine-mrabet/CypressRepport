@@ -10,6 +10,8 @@ jobs:
   cypress-test:
     name: 'cypress Test'
     runs-on: windows-latest
+    env:
+      BASE_URL: http://10.1.146.29:8080/#/
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
