@@ -23,14 +23,12 @@ jobs:
       - name: Copy Cypress videos
         run: |
           robocopy cypress\videos public\videos /E
-          robocopy cypress\screenshots public\screenshots /E
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
           name: cypress-artifacts
           path: |
             public/videos
-            public/screenshots
       - name: Merge test reports
         run: npm run combine:report
       - name: Generate HTML report
