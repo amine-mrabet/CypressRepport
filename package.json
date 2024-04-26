@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "open": "npx cypress open",
-    "generate:report": "npx cypress run --reporter mochawesome && npx marge cypress/reports/mochareports/*.json",
+    "generate:report": "npx cypress run --reporter mochawesome",
     "cypress:open:debug": "cypress open -d --max-old-space-size=6144",
     "cloud": "npx cypress run --record --key bf99167d-6580-49c1-9267-d4c4dfac9371",
     "test": "echo \"Error: no test specified\" && exit 1"
