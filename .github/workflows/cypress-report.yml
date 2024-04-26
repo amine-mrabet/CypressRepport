@@ -22,7 +22,7 @@ jobs:
         continue-on-error: false
       - name: Copy Cypress videos
         run: |
-            robocopy cypress\videos reports\videos /E
+            robocopy cypress\videos public\videos /E
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
