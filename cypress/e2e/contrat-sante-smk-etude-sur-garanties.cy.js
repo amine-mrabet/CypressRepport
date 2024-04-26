@@ -14,11 +14,11 @@ const PERIMETREETUDE = require('./data-json/perimetre-de-etude.json');
 const nommer_redacteur_technico_commercial = require('./data-json/nommer-redacteur-technico-commercial.json');
 // Generate a random 14-digit number
 const randomNumber14 = Math.floor(10000000000000 + Math.random() * 90000000000000);
-var NUM_PROJET 
+var NUM_PROJET = "2024AJ74"
 describe('My Web Application Tests', () => {
   it('create Saisie', () => {
     cy.visit('/');
-    Login(b012cag.username, b012cag.password)
+/*     Login(b012cag.username, b012cag.password)
     Cypress.on('uncaught:exception', (err, runnable) => {
       Cypress.runner.stop() // Stop the test run
     });
@@ -34,13 +34,13 @@ describe('My Web Application Tests', () => {
       cy.get('.checkmark-container input[type=checkbox]').first().should('exist').click({ force: true });
       cy.get('.broker-inspector-info a').should('exist').click();
       addApporteur()
-      /*  cy.get('.project-description a').should('exist').click();
+      cy.get('.project-description a').should('exist').click();
       cy.wait(3000)
       projectDescription()
       cy.get('.Synthese-saisie a').should('exist').click();
       cy.get('app-validation-sasie .style-save button').should('exist').click({ waitForAnimations: false });
       cy.get('.validation-saisie a').should('exist').click({ waitForAnimations: false });
-     cy.get(".request-reason").should('exist').click({ waitForAnimations: false });
+      cy.get(".request-reason").should('exist').click({ waitForAnimations: false });
       cy.get(".p-dropdown-filter").should('exist').type("Conquête")
       cy.get('p-dropdownitem').contains("Conquête").should('exist').click();
       cy.get('app-synthese-saisie .create-project button').should('exist').click({ waitForAnimations: false });
@@ -49,15 +49,12 @@ describe('My Web Application Tests', () => {
       cy.url().then(url => {
         const uri = url.split('/').slice(3).join('/');
         NUM_PROJET = uri.split('#/project?numProject=').join('')
-         console.log('hani houni', NUM_PROJET);
-       }); */
-      
-  
+  });
     } else {
       console.log('Login failed');
-    }
-  });
-  /* it('create Project', () => {
+    } */
+  });/* 
+  it('create Project', () => {
     cy.wait(1000);
     cy.visit('/');
     cy.wait(500)
@@ -318,7 +315,19 @@ describe('My Web Application Tests', () => {
       cy.wait(500);
       cy.get('.check-all p-inputswitch').should('exist').click({ waitForAnimations: false });
       cy.wait(2000);
-      generateDoc()
+      retryFunctionGenerateDoc(() => {
+        cy.wait(3000);
+        cy.get('.telecharger-btn button').invoke('attr', 'disabled').then((disabledAttr) => {
+          if (disabledAttr) {
+            cy.get('.generer-documents-btn').should('exist').click({ waitForAnimations: false });
+            cy.wait(40000);
+            cy.get('.contracts-title button').should('exist').click();
+            cy.get('.check-all p-inputswitch').should('exist').click({ waitForAnimations: false });
+            cy.get('.check-all p-inputswitch').should('exist').click({ waitForAnimations: false });
+          }
+        });
+      }, 3);
+      //generateDoc()
       cy.get(".contractStatusDropDown .p-dropdown-trigger").should('exist').click();
       cy.get('p-dropdownitem ').contains("Projet PC").should('exist').click();
       cy.wait(2000);
@@ -353,7 +362,7 @@ describe('My Web Application Tests', () => {
       cy.get("#numproject").should('exist').type(NUM_PROJET)
       cy.get('app-project-project-search-input .search  button').should('exist').click();
       cy.get('.project-0 .button-expandable-project button').should('exist').click();
-      cy.get('.row-expanded .vp-col-actions .plm-grouped-button button').should('exist').click();
+      cy.get('.row-expanded tr:first-child .vp-col-actions .plm-grouped-button button').should('exist').click();
       cy.get(' .ouvrir-action button').should('exist').click({ waitForAnimations: false });
       cy.get('.actions-cell a').should('exist').click();
       cy.get('app-etude-table .p-panel-icons-end button').should('exist').click();
@@ -430,7 +439,7 @@ describe('My Web Application Tests', () => {
       cy.get("#numproject").should('exist').type(NUM_PROJET)
       cy.get('app-project-project-search-input .search  button').should('exist').click();
       cy.get('.project-0 .button-expandable-project button').should('exist').click();
-      cy.get('.row-expanded .vp-col-actions .plm-grouped-button button').should('exist').click();
+      cy.get('.row-expanded tr:first-child .vp-col-actions .plm-grouped-button button').should('exist').click();
       cy.get(' .ouvrir-action button').should('exist').click({ waitForAnimations: false });
       cy.get('.actions-cell a').should('exist').click();
       cy.get('app-etude-table .p-panel-icons-end button').should('exist').click();
@@ -567,7 +576,7 @@ function Login(username, password) {
   cy.get('input[type=password]').should('exist').type(password);
   cy.get('#kc-form-login input[type=submit]').should('exist').click();
 }
-function generateDoc() {
+/* function generateDoc() {
   // Check if the button does not have the 'disabled' attribute
   cy.get('.check-all p-inputswitch').should('exist').click({ waitForAnimations: false });
   cy.get('.check-all p-inputswitch').should('exist').click({ waitForAnimations: false });
@@ -581,7 +590,24 @@ function generateDoc() {
       generateDoc()
     }
   });
+} */
+function retryFunctionGenerateDoc(func, attemptsLeft) {
+  if (attemptsLeft === 0) {
+      //throw new Error('Toutes les tentatives ont échoué');
+      Cypress.runner.stop()
+  }
+
+  try {
+      func();
+  } catch (error) {
+      // En cas d'échec, réessayer en décrémentant le nombre de tentatives restantes
+      console.log(`La tentative a échoué. Tentatives restantes : ${attemptsLeft}`);
+      retryFunction(func, attemptsLeft - 1);
+  }
 }
+
+
+
 /**
  * 
  */
@@ -619,20 +645,18 @@ function addEtablisement() {
 function addApporteur() {
 
   cy.get(Apporteur.brokerCode.selectorAttr).should('exist').clear({ force: true });
-  cy.get(Apporteur.brokerCode.selectorAttr).should('exist').type(Apporteur.brokerCode.value);
-/*   cy.get('app-apporteur-inspecteur .broker-code .search-broker-code').should('exist').click();
-  cy.wait(5000).then(() => {
-    cy.get(Apporteur.brokerContactCode.selectorAttr).should('exist').click();
-    cy.get(".p-dropdown-filter").should('exist').type(Apporteur.brokerContactCode.labelFilter)
-    cy.get('p-dropdownitem').contains(Apporteur.brokerContactCode.labelFilter).should('exist').click();
-    cy.get('app-apporteur-inspecteur .siret-preconised input').invoke('val').then(value => {
-      cy.get('app-apporteur-inspecteur .siren-dropdown input').should('exist').clear({ force: true });
-      cy.get('app-apporteur-inspecteur .siren-dropdown input').should('exist').type(value, { force: true });
-      cy.get('app-apporteur-inspecteur .search-siren button').should('exist').click();
-    });
-    cy.get('p-treetable tbody > tr').should('exist').click(); 
-  })*/
-
+  cy.get(Apporteur.brokerCode.selectorAttr).should('exist').type(Apporteur.brokerCode.value, { force: true });
+  cy.wait(3000)
+  cy.get('app-apporteur-inspecteur .broker-code .search-broker-code').should('exist').click();
+  cy.get(Apporteur.brokerContactCode.selectorAttr).should('exist').click();
+  cy.get(".p-dropdown-filter").should('exist').type(Apporteur.brokerContactCode.labelFilter)
+  cy.get('p-dropdownitem').contains(Apporteur.brokerContactCode.labelFilter).should('exist').click();
+  cy.get('app-apporteur-inspecteur .siret-preconised input').invoke('val').then(value => {
+    cy.get('app-apporteur-inspecteur .siren-dropdown input').should('exist').clear({ force: true });
+    cy.get('app-apporteur-inspecteur .siren-dropdown input').should('exist').type(value, { force: true });
+    cy.get('app-apporteur-inspecteur .search-siren button').should('exist').click();
+  });
+  cy.get('p-treetable tbody > tr').should('exist').click();
 
 }
 /**
