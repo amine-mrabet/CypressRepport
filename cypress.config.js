@@ -17,4 +17,11 @@ module.exports = defineConfig({
     setupNodeEvents(on, config) {},
     baseUrl: 'https://www.cypress.io',
   },
+  reporter: "mochawesome",
+  reporterOptions: {
+    reportDir: "cypress/reports/mochareports",
+    overwrite: false,
+    html: false,
+    json: true
+  }
 })

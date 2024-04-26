@@ -15,9 +15,16 @@ const nommer_redacteur_technico_commercial = require('./data-json/nommer-redacte
 // Generate a random 14-digit number
 const randomNumber14 = Math.floor(10000000000000 + Math.random() * 90000000000000);
 var NUM_PROJET = "2024AJ74"
+const { addContext } = require('mochawesome/addContext');
 describe('My Web Application Tests', () => {
   it('create Saisie', () => {
     cy.visit('/');
+    Cypress.on('test:after:run', (test, runnable) => {
+      if (test.state === 'failed') {
+        const screenshot = `screenshots/${Cypress.spec.name}/${runnable.parent.title} -- ${test.title} (failed).png`;
+        addContext({ test }, screenshot);
+      }
+    });
 /*     Login(b012cag.username, b012cag.password)
     Cypress.on('uncaught:exception', (err, runnable) => {
       Cypress.runner.stop() // Stop the test run

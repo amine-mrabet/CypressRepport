@@ -29,8 +29,6 @@ jobs:
           name: cypress-artifacts
           path: |
                 cypress/videos
-      - name: Merge test reports
-        run: npm run combine:report
       - name: Generate HTML report
         run: npm run generate:report
       - name: Deploy report page to Github Page     

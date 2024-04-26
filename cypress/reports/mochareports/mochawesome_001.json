@@ -1,0 +1,105 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 1,
+    "passes": 1,
+    "pending": 0,
+    "failures": 0,
+    "start": "2024-04-26T13:49:05.566Z",
+    "end": "2024-04-26T13:49:20.358Z",
+    "duration": 14792,
+    "testsRegistered": 1,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "3195ff10-65db-44d0-944b-942b3eeeb345",
+      "title": "",
+      "fullFile": "cypress\\e2e\\contrat-sante-smk-etude-sur-garanties.cy.js",
+      "file": "cypress\\e2e\\contrat-sante-smk-etude-sur-garanties.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "eb8f0bca-5936-49d6-a3f5-961695d7456f",
+          "title": "My Web Application Tests",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "create Saisie",
+              "fullTitle": "My Web Application Tests create Saisie",
+              "timedOut": null,
+              "duration": 14057,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit('/');\nCypress.on('test:after:run', (test, runnable) => {\n  if (test.state === 'failed') {\n    const screenshot = `screenshots/${Cypress.spec.name}/${runnable.parent.title} -- ${test.title} (failed).png`;\n    addContext({\n      test\n    }, screenshot);\n  }\n});\n/*     Login(b012cag.username, b012cag.password)\n    Cypress.on('uncaught:exception', (err, runnable) => {\n      Cypress.runner.stop() // Stop the test run\n    });\n    Cypress.on('fail', (error, runnable) => {\n      Cypress.runner.stop() // Stop the test run\n    });\n    const isLoginSuccessful = checkLogin(b012cag.username, b012cag.password, b012cag);\n    if (isLoginSuccessful) {\n      cy.visit('/');\n      cy.get('.create-request button').should('exist').click({ waitForAnimations: false });\n      addEtablisement();\n      cy.get('#scrollTopBtn').should('exist').click();\n      cy.get('.checkmark-container input[type=checkbox]').first().should('exist').click({ force: true });\n      cy.get('.broker-inspector-info a').should('exist').click();\n      addApporteur()\n      cy.get('.project-description a').should('exist').click();\n      cy.wait(3000)\n      projectDescription()\n      cy.get('.Synthese-saisie a').should('exist').click();\n      cy.get('app-validation-sasie .style-save button').should('exist').click({ waitForAnimations: false });\n      cy.get('.validation-saisie a').should('exist').click({ waitForAnimations: false });\n      cy.get(\".request-reason\").should('exist').click({ waitForAnimations: false });\n      cy.get(\".p-dropdown-filter\").should('exist').type(\"Conquête\")\n      cy.get('p-dropdownitem').contains(\"Conquête\").should('exist').click();\n      cy.get('app-synthese-saisie .create-project button').should('exist').click({ waitForAnimations: false });\n      cy.get(\".open-project\").should('exist').click({ waitForAnimations: false });\n      cy.wait(7000)\n      cy.url().then(url => {\n        const uri = url.split('/').slice(3).join('/');\n        NUM_PROJET = uri.split('#/project?numProject=').join('')\n  });\n    } else {\n      console.log('Login failed');\n    } */",
+              "err": {},
+              "uuid": "b5d0bf5b-cab9-4f06-8a5f-187ccd0a8ee4",
+              "parentUUID": "eb8f0bca-5936-49d6-a3f5-961695d7456f",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "b5d0bf5b-cab9-4f06-8a5f-187ccd0a8ee4"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 14057,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress/reports/mochareports",
+        "overwrite": false,
+        "html": false,
+        "json": true
+      },
+      "version": "6.2.0"
+    }
+  }
+}
